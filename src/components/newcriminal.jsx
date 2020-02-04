@@ -28,7 +28,7 @@ const NewCriminal = (props) => {
         setloading(true)
         e.preventDefault()
         Axios({
-            url: "http://localhost:1020/api/add",
+            url: "https://ppl-server.herokuapp.com/api/add",
             method: "POST",
             data: {
                 // full_name: full_name,
