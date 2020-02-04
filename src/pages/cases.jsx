@@ -19,7 +19,7 @@ class Cases extends Component {
     }
     async fetcher(){
         await Axios({
-             url: "http://localhost:1020/api/cases",
+             url: "https://ppl-server.herokuapp.com/api/cases",
              method: "GET"
          }).then(data=>{
              this.setState({cases: data.data.cases})
