@@ -1,0 +1,57 @@
+.Messages 
+    position: relative
+    width: 100%
+    height: auto
+    display: block
+    padding: 150px 20px 50px 20px
+    .message
+        width: 80%
+        height: auto
+        padding: 10px 30px
+        display: inline-flex
+        background: #dcdfe2
+        border-radius: 10px
+        flex-wrap: wrap
+        font-size: 14px
+        span 
+            width: 100%
+            font-weight: 600
+            font-size: 16px
+            margin: 5px 0
+            &:nth-of-type(2)
+                font-size: 14px
+                color: #808080
+    form 
+        position: fixed
+        bottom: 0px
+        left: 5px
+        width: calc( 100vw - 10px )
+        height: auto
+        display: block
+        background: #edf0f4
+        z-index: 100
+        border-radius: 10px 10px  0 0 
+        .messageInput 
+            position: relative
+            bottom: 0
+            width: 95%
+            // max-width: 900px
+            left: 50%
+            margin: 5px 0
+            transform: translateX(-50%)
+            &.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline
+                border-color: #46a6f5
+            .MuiOutlinedInput-root 
+                border-radius: 60px
+        .messageBtn 
+            position: absolute
+            bottom: 10px
+            right: calc( 3% + 10px )
+            width: 45px !important
+            height: 45px !important
+            background: #424242
+            transition: ease-in-out .4s
+            &:hover
+                background: #2195f3
+            svg 
+                fill: #ffffff
