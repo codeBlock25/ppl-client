@@ -116,7 +116,7 @@ const NewStaff = (props) => {
                     add biometrics (optional)
                 </Fab>
                 <Button type="button" className="submitBtn" onClick={()=>staffopen()}>cancel</Button>
-                <Button type="submit" className="submitBtn">{loading ? <ClipLoader/>:"add"}</Button>
+                <Button type="submit" className="submitBtn">{loading ? <ClipLoader color="white"/>:"add"}</Button>
             </form>
         </div>
     )
