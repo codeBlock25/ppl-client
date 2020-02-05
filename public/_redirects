@@ -1,6 +1,6 @@
-/profile /profile
-/criminals /criminals
-/login /login
-/message /message
-/cases /cases
-/criminals/views /criminals/views
+/profile /profile  200
+/criminals /criminals 200
+/login /login 200
+/message /message 200
+/cases /cases 200
+/criminals/views /criminals/views 200
