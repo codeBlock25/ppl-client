@@ -6,11 +6,12 @@ import { connect } from "react-redux"
 import Axios from "axios"
 import { ClipLoader } from "react-spinners"
 import { toast, ToastContainer } from "react-toastify"
-import { Fingerprint, Camera, PhotoCamera } from "@material-ui/icons"
+import { Fingerprint, PhotoCamera } from "@material-ui/icons"
 
 const NewStaff = (props) => {
     const [full_name, setFull_name] = useState("")
     const [phone_num, setphone_num] = useState("")
+    const [bin, setbin]= useState("")
     const [email, setemail] = useState("")
     const [rank, setrank] = useState("")
     const [loading, setloading] = useState(false)
@@ -22,13 +23,14 @@ const NewStaff = (props) => {
         setloading(true)
         e.preventDefault()
         Axios({
-            url: "https://ppl-server.herokuapp.com/api/add",
+            url: "http://localhost:1020/api/add",
             method: "POST",
             data: {
                 full_name: full_name,
                 email: email,
                 rank: rank,
-                phone_num: phone_num
+                phone_num: phone_num,
+                avatar: bin
             }
         }).then(()=>{
             setloading(false)
@@ -38,6 +40,30 @@ const NewStaff = (props) => {
             toast.error("unable to create")
         })
     }
+const createBinary = (file, callback)=>{
+    var reader = new FileReader()
+    reader.onload = ()=>{
+        callback(reader.result)
+    }
+    reader.readAsBinaryString(file)
+}
+const upload =(e)=>{
+    var accept = {
+        binary : ["image/png", "image/jpeg", "image/jpg"]
+      };
+      let callback = (result) =>{
+          setbin(result)
+      }
+    var file = e.currentTarget.files[0]
+    if(accept.binary.indexOf(file.type) > -1){
+        console.log("match")
+        createBinary(file,callback)
+    } else {
+        console.log("not accepted")
+        toast.error("picture must be either png, jpg or jpeg")
+    }
+    console.log(bin)
+}
     return (
         <div className={newstaff ? "Newstaff open": "Newstaff"}>
             <form onSubmit={(e)=>hanleSubmit(e)}>
@@ -48,6 +74,9 @@ const NewStaff = (props) => {
                         id="contained-button-file"
                         type="file"
                         value=""
+                        onChange={(e)=>{
+                            upload(e)
+                        }} 
                     />
                     <label htmlFor="contained-button-file" className="inputBox">
                         <Button variant="contained" fullWidth color="primary" component="span">
@@ -83,7 +112,7 @@ const NewStaff = (props) => {
                     onChange={(e)=>{setphone_num(e.target.value)}}
                 />
                 <FormControl required variant="outlined" className="inputBox">
-                    <InputLabel forHtml="rank">rank</InputLabel>
+                    <InputLabel htmlFor="rank">rank</InputLabel>
                     <Select
                     labelId="rank"
                     id="rank"

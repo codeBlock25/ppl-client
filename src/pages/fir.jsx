@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "../styles/criminals.sass"
 import { Button } from '@material-ui/core';
-import { newcriminalAction, newfirAction } from '../redux/actions/controls';
+import { newfirAction } from '../redux/actions/controls';
 import { connect } from 'react-redux';
 
 class Firs extends Component {

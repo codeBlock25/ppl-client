@@ -13,6 +13,14 @@
         border-radius: 10px
         flex-wrap: wrap
         font-size: 14px
+        margin: 10px 0
+        &.own 
+            background: #2195f3
+            color: white
+            span 
+                color: white !important
+                &:nth-of-type(2)
+                    color: #afdbff !important
         span 
             width: 100%
             font-weight: 600
@@ -35,14 +43,42 @@
             position: relative
             bottom: 0
             width: 95%
-            // max-width: 900px
             left: 50%
             margin: 5px 0
             transform: translateX(-50%)
+            &.true 
+                height: 50px
+                border-radius: 5px
+                border: none 
+                outline: none
+                user-select: none
+                background: #edf0f4
+                box-shadow: 0 0 1px 1px #b2b5b8
+                padding: 20px
+                font-size: 16px
+                &::placeholder
+                    color: #a0a0a0
             &.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline
                 border-color: #46a6f5
             .MuiOutlinedInput-root 
-                border-radius: 60px
+                border-radius: 5px
+        .mssg
+            position: relative
+            width: auto 
+            height: auto 
+            display: block
+            label 
+                position: absolute
+                top: -20px
+                left: 7%
+                width: auto
+                height: 25px
+                line-height: 26px
+                background: #2195f3
+                color: white
+                padding: 0 10px
+                border-radius: 10px 10px 0 0
+                text-transform: uppercase
         .messageBtn 
             position: absolute
             bottom: 10px
@@ -55,3 +91,25 @@
                 background: #2195f3
             svg 
                 fill: #ffffff
+
+
+    .msgLoader 
+        width: 100%
+        height: auto 
+        display: block
+        span
+            width: 60%
+            height: 80px
+            display: block
+            margin: 20px 0
+            background: red
+            border-radius: 10px
+            animation: animate_load 1s ease-in-out infinite normal forwards
+            @keyframes animate_load
+                0%
+                    background: #e4e4e4
+                50%
+                    background: #d8d8d8
+                100%
+                    background: #e4e4e4
+                    

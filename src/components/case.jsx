@@ -37,7 +37,7 @@ class Case extends Component {
         let idr = this.props.location.pathname.split("/")[2]
         await Axios({
             method: "PUT",
-            url: `https://ppl-server.herokuapp.com/api/cases/`,
+            url: `http://localhost:1020/api/cases/`,
             data: {
                 id: idr,
                 assignedStaff: this.state.assignedStaff

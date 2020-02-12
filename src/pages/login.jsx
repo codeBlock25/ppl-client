@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import "../styles/account.sass"
-import ReactDOM from 'react-dom';
 import { Button, TextField, FormControlLabel, Checkbox } from "@material-ui/core"
 import { ArrowForward } from "@material-ui/icons"
 import { withStyles } from "@material-ui/styles"
@@ -10,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ClipLoader } from 'react-spinners';
 import { staffDetailsAction } from '../redux/actions/details';
 import { connect } from 'react-redux';
-import Nav from "../components/drop"
 
 const styles = {
     textfield: {
@@ -75,22 +73,25 @@ class Login extends Component {
             document.querySelector(".account form .error").classList.remove("active")
             console.log("passed")
             await Axios({
-                url: `https://ppl-server.herokuapp.com/api/login?email=${this.state.emaild}&password=${this.state.password}`,
+                url: `http://localhost:1020/api/login?email=${this.state.emaild}&password=${this.state.password}`,
                 method: "GET",
             }).then(data=>{
-                localStorage.setItem("staff_data", {
+                console.log(data.data.info)
+                localStorage.setItem("staff", {
                     full_name: data.data.info.full_name,
                     email: data.data.info.email,
                     rank: data.data.info.rank,
                     phone_num: data.data.info.phone_num,
-                    level: data.data.info.staff_level
+                    level: data.data.info.staff_level,
+                    avatar: data.data.info.avatar
                 })
                 this.props.setDetails({
                     full_name: data.data.info.full_name,
                     email: data.data.info.email,
                     rank: data.data.info.rank,
                     phone_num: data.data.info.phone_num,
-                    level: data.data.info.staff_level
+                    level: data.data.info.staff_level,
+                    avatar: data.data.info.avatar
                 })
                 this.setState({loading: false}, ()=>{
                     this.props.history.push("/profile") 

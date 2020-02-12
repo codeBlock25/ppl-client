@@ -13,19 +13,23 @@ class Cases extends Component {
     constructor(props){
         super(props)
         this.state = {
-            cases: []
+            cases: [],
+            loading: true
         }
         this.fetcher = this.fetcher.bind(this)
     }
     async fetcher(){
+        this.setState({loading:  true})
         await Axios({
-             url: "https://ppl-server.herokuapp.com/api/cases",
+             url: "http://localhost:1020/api/cases",
              method: "GET"
-         }).then(data=>{
-             this.setState({cases: data.data.cases})
+         }).then(result=>{
+             this.setState({cases: result.data.cases})
+             this.setState({loading:  false})
          })
          .catch(err=>{
              console.log(err)
+             this.setState({loading:  false})
          })
         }
     componentDidMount(){
@@ -44,8 +48,10 @@ class Cases extends Component {
                 </form>
                 <div className="container">
                     {
-                        this.state.cases === [] ? 
-                        <ClipLoader size="300"/>:
+                        this.state.loading ? 
+                        <ClipLoader size="300px" color="#101010"/>
+                        :
+                        this.state.cases.length >= 1 ?
                         <React.Fragment>
                             { this.props.match.isExact ?
                                 this.state.cases.map((caser)=>{
@@ -61,9 +67,9 @@ class Cases extends Component {
                                         </div>
                                     )
                                 })
-                                : <Case/>
+                                : <Case/> 
                             }
-                    </React.Fragment>
+                    </React.Fragment>: <span className="errCase">no cases</span>
                     }
                 </div>
             </section>

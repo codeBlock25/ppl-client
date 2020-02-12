@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "../styles/newstaff.sass"
 import { TextField, FormControl, Select, MenuItem, InputLabel, Button } from "@material-ui/core"
-import { newstaffAction, newcriminalAction } from "../redux/actions/controls"
+import { newcriminalAction } from "../redux/actions/controls"
 import { connect } from "react-redux"
 import Axios from "axios"
 import { ClipLoader } from "react-spinners"
@@ -28,7 +28,7 @@ const NewCriminal = (props) => {
         setloading(true)
         e.preventDefault()
         Axios({
-            url: "https://ppl-server.herokuapp.com/api/add",
+            url: "http://localhost:1020/api/add",
             method: "POST",
             data: {
                 // full_name: full_name,

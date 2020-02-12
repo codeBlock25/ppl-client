@@ -6,10 +6,10 @@ import Criminals from './pages/criminals';
 import login from './pages/login';
 import NewStaff from './components/newstaff';
 import NewCriminal from './components/newcriminal';
-import Firs from './pages/fir';
 import NewFir from './components/newfir';
 import Cases from './pages/cases';
 import Messages from './pages/messages';
+import Newcrimerecord from './components/newcrimerecord';
 
 
 function App(){
@@ -20,6 +20,7 @@ function App(){
         <NewStaff/>
         <NewCriminal/>
         <NewFir/>
+        <Newcrimerecord/>
         <Switch>
           <Route
             component={Profile}

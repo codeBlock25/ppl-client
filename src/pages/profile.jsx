@@ -1,25 +1,72 @@
 import React, { Component } from "react"
 import "../styles/profile.sass"
-import { Button } from "@material-ui/core"
+import { Button, Avatar } from "@material-ui/core"
 import { newstaffAction } from "../redux/actions/controls"
 import { connect } from "react-redux"
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 import { staffDetailsAction } from "../redux/actions/details"
 
 
 class Profile extends Component {
-    // componentDidMount(){
-    //     let data =  localStorage.getItem("staff_data")
-    //     console.log(data)
-    //     this.props.setDetails(data)
-    // }
+
+    constructor(props){
+        super(props)
+        this.state ={
+            bin: ""
+        }
+        this.loader = this.loader.bind(this)
+        this.hexConverter = this.hexConverter.bind(this)
+        this.callback = this.callback.bind(this)
+    }
+    loader(file, callback){
+        var reader = new FileReader()
+        reader.onload = ()=>{
+            this.callback(reader.result)
+        }
+        console.log(file)
+        reader.readAsArrayBuffer(file.data)
+    }
+    // const upload =(e)=>{
+    //     var accept = {
+    //         binary : ["image/png", "image/jpeg", "image/jpg"]
+    //       };
+    //       let callback = (result) =>{
+    //           setbin(result)
+    //       }
+    //     var file = e.currentTarget.files[0]
+    //     if(accept.binary.indexOf(file.type) > -1){
+    //         console.log("match")
+    //     } else {
+    //         console.log("not accepted")
+    //         toast.error("picture must be either png, jpg or jpeg")
+    //     }
+    //     console.log(bin)
+    // } 
+    callback(result){
+        this.setState({bin: result})
+        console.log(result)
+    }
+    hexConverter = (str) =>{
+        console.log(this.props.details)
+        this.loader(this.props.details.avatar,this.callback)
+        // return btoa(String.fromCharCode
+        //     .apply(null, str.replace(/\r|\n/g, "")
+        //     .replace(/([\da-fA-F]{2}) ?/g, "0x$1")
+        //     .replace(/ +$/, "").split(" ")
+        //     )
+        // )
+    }
+    componentDidMount(){
+        // this.hexConverter()
+    }
     render() {
         const { newstaff, details } = this.props
+        console.log(details)
         return (
             <section className="Profile">
-                <ToastContainer position="bottom-center"/>
+                {/* <ToastContainer position="bottom-center"/> */}
                 <div className="info">
-                    <span className="pic" role="img" style={{backgroundImage: `url(/images/pic1.jpeg)`}} />
+                    <img className="pic" src={'data:image/jpeg;base64,' + this.state.bin} />
                     <div className="content">
                         { details ? 
                             <React.Fragment>

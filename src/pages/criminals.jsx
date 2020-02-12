@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "../styles/criminals.sass"
 import { Button } from '@material-ui/core';
-import { newcriminalAction } from '../redux/actions/controls';
+import { newcriminalAction, newcrimerecordAction } from '../redux/actions/controls';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/styles';
+import Axios from "axios"
 
 function createData(case_code, crime, count, date, sentence) {
     return { case_code, crime, count, date, sentence };
@@ -24,23 +25,20 @@ function createData(case_code, crime, count, date, sentence) {
       id: 'count',
       label: 'Count',
       minWidth: 170,
-      align: 'center',
-    //   format: value => value.toLocaleString(),
+      align: 'center'
     },
     {
       id: 'date',
       label: 'Date of conviction',
       minWidth: 170,
-      align: 'center',
-    //   format: value => value.toFixed(2),
-    },,
+      align: 'center'
+    },
     {
       id: 'sentence',
       label: 'sentence duration',
       minWidth: 170,
-      align: 'center',
-    //   format: value => value.toFixed(2),
-    },
+      align: 'center'
+    }
   ];
 const style = {
     root: {
@@ -67,7 +65,22 @@ class Criminals extends Component {
     handleChangeRowsPerPage = event => {
         this.setState({page: +event.target.value})
     };
-  
+    fetch = async ()=>{
+        let token = "my token should go here"
+        await Axios({
+            url: `http://localhost:1020/api/crime?token=${token}`,
+            method: "GET"
+        })
+        .then((result)=>{
+            console.log(result.data)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+    componentDidMount(){
+        this.fetch()
+    }
     render() {
         const { classes } = this.props
         return (
@@ -84,8 +97,7 @@ class Criminals extends Component {
                                         <TableCell
                                         key={column.id}
                                         align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                        style={{backgroundColor: "#2196f3", color: "white", fontWeight: "600"}}
+                                        style={{ minWidth: column.minWidth, backgroundColor: "#2196f3", color: "white", fontWeight: "600"}}
                                         >
                                         {column.label}
                                         </TableCell>
@@ -122,14 +134,18 @@ class Criminals extends Component {
                         </Paper>
                     </div>
                 </div>
-                <Button className="crimBtn">generate criminal record</Button>
+                <div className="crimBtnGroup">
+                    <Button className="crimBtn">generate criminal record</Button>
+                    <Button className="crimBtn" onClick={this.props.crimerecordopen}>add criminal record</Button>
+                </div>
             </section>
         )
     }
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        newcriminal: state.controls.newstaff_panel_open
+        newcriminal: state.controls.newcriminal_panel_open,
+        newcrimerecording: state.controls.newcrimerecord_panel_open
     }
 }
 
@@ -137,6 +153,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         criminalopen: () => {
             dispatch(newcriminalAction())
+        },
+        crimerecordopen: () => {
+            dispatch(newcrimerecordAction())
         }
     }
 }

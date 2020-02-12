@@ -1,5 +1,4 @@
-import { NEWSTAFF, NEWCRIMINAL, NEWFIR } from "../types/controls"
-import NewStaff from "../../components/newstaff"
+import { NEWSTAFF, NEWCRIMINAL, NEWFIR, NEWCRIMERECORD } from "../types/controls"
 
 
 export const newstaffAction = () => {
@@ -17,6 +16,12 @@ export const newcriminalAction = () => {
 export const newfirAction = () => {
     return {
         type: NEWFIR,
+        info: "handle newstaff controls"
+    }
+}
+export const newcrimerecordAction = () => {
+    return {
+        type: NEWCRIMERECORD,
         info: "handle newstaff controls"
     }
 }

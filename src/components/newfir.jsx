@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "../styles/newstaff.sass"
-import { TextField, FormControl, Select, MenuItem, InputLabel, Button } from "@material-ui/core"
-import { newstaffAction, newcriminalAction, newfirAction } from "../redux/actions/controls"
+import { TextField, Button } from "@material-ui/core"
+import { newfirAction } from "../redux/actions/controls"
 import { connect } from "react-redux"
 import Axios from "axios"
 import { ClipLoader } from "react-spinners"
@@ -30,7 +30,7 @@ const NewFir = (props) => {
         setloading(true)
         e.preventDefault()
        await Axios({
-            url: "https://ppl-server.herokuapp.com/api/fir",
+            url: "http://localhost:1020/api/fir",
             method: "POST",
             data: {
                 officer_name: props.staffDetails.full_name,
