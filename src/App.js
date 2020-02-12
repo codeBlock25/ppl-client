@@ -56,7 +56,7 @@ function App(){
             component={Cases}
             path="/cases"
           />
-          <Redirect from="/" to="/profile" exact={true} />
+          <Redirect from="/" to="/login" exact={true} />
         </Switch>
       </section>
     </React.Fragment>
