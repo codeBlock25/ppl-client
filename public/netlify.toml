@@ -15,7 +15,7 @@
   to="/cases"
   status = 302
   force= false
-  query={path :"path"}
+  query={path =":path"}
   
 [[redirects]]
   from = "/message"
