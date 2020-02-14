@@ -1,4 +1,4 @@
-/login /login 302
-/profile /profile 302
+/logi /login 302
+/profiles /profile 302
 /cases/* /cases 302
-/message /message 302
+/messages /message 302
