@@ -1,0 +1,24 @@
+[[redirects]]
+  from = "/profile"
+  to="/profile"
+  status = 302
+  force= false
+  
+[[redirects]]
+  from = "/criminals"
+  to="/criminals"
+  status = 302
+  force= false
+  
+[[redirects]]
+  from = "/cases"
+  to="/cases"
+  status = 302
+  force= false
+  query={path :"path"}
+  
+[[redirects]]
+  from = "/message"
+  to="/message"
+  status = 302
+  force= false
