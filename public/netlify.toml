@@ -5,6 +5,12 @@
   force= false
   
 [[redirects]]
+  from = "/"
+  to="/login"
+  status = 301
+  force= false
+  
+[[redirects]]
   from = "/criminals"
   to="/criminals"
   status = 302
