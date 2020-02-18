@@ -68,7 +68,7 @@ class Criminals extends Component {
         let token = "my token should go here"
         let rows = []
         await Axios({
-            url: `http://localhost:1020/api/crime?token=${token}`,
+            url: `https://sam-school.herokuapp.com/api/crime?token=${token}`,
             method: "GET"
         })
         .then((result)=>{
