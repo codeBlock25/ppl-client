@@ -3,7 +3,7 @@ import "../styles/profile.sass"
 import { Button, Avatar } from "@material-ui/core"
 import { newstaffAction } from "../redux/actions/controls"
 import { connect } from "react-redux"
-import { toast, ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from 'react-toastify';
 import { staffDetailsAction } from "../redux/actions/details"
 
 
