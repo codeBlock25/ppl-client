@@ -64,7 +64,7 @@ class Profile extends Component {
         console.log(details)
         return (
             <section className="Profile">
-                {/* <ToastContainer position="bottom-center"/> */}
+                <ToastContainer position="bottom-center"/>
                 <div className="info">
                     <img className="pic" src={'data:image/jpeg;base64,' + this.state.bin} />
                     <div className="content">
@@ -79,7 +79,7 @@ class Profile extends Component {
                             <span className="cc"><span>no record</span></span>
                         }
                         <Button className="Btn add" onClick={()=>{
-                            if(details.level !== 1){
+                            if(details.level === 1){
                                 newstaff()
                             } else {
                                 toast.error(`only level 1 officers can add users and you'er a level ${details.level}`)
