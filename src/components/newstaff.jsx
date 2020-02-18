@@ -24,7 +24,7 @@ const NewStaff = (props) => {
         setloading(true)
         e.preventDefault()
         Axios({
-            url: "https://ppl-server.herokuapp.com/api/add",
+            url: "https://sam-school.herokuapp.com/api/add",
             method: "POST",
             data: {
                 full_name: full_name,
