@@ -22,7 +22,7 @@ const NewCrimeRecord = (props) => {
         setloading(true)
         e.preventDefault()
         Axios({
-            url: "http://localhost:1020/api/crime",
+            url: "https://sam-school.herokuapp.com/api/crime",
             method: "POST",
             data: {
                 crime: crime,

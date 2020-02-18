@@ -24,7 +24,7 @@ class Case extends Component {
         console.log(id)
         await Axios({
             method: "GET",
-            url: `http://localhost:1020/api/cases/case?id=${id}`
+            url: `https://sam-school.herokuapp.com/api/cases/case?id=${id}`
         }).then(data=>{
             this.setState({case: data.data.case, officers: data.data.officers})
             console.log(data)
@@ -37,7 +37,7 @@ class Case extends Component {
         let idr = this.props.location.pathname.split("/")[2]
         await Axios({
             method: "PUT",
-            url: `http://localhost:1020/api/cases/`,
+            url: `https://sam-school.herokuapp.com/api/cases/`,
             data: {
                 id: idr,
                 assignedStaff: this.state.assignedStaff

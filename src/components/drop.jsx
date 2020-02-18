@@ -15,10 +15,11 @@ class Nav extends Component {
                 <span className="logo" role="img" style={{backgroundImage: `url("/images/logo.png")`}}/>
                 <span className="name">Officer. {details ? details.full_name.split(" ")[0] : "J"} </span>
                 <div className="links">
+                <React.Fragment>
                     <NavLink className="link" to="/profile" onClick={()=>{
                         if(this.props.newfir){
                             this.props.firopen()
-                        }}}><AccountCircle/>  Profile</NavLink>
+                        }}}><AccountCircle/>  Profile</NavLink>    
                     <NavLink className="link" to="/criminals" onClick={()=>{
                         if(this.props.newfir){
                             this.props.firopen()
@@ -28,6 +29,7 @@ class Nav extends Component {
                             this.props.firopen()
                         }}}><Work/>  cases</NavLink>
                     <NavLink className="link" to="/firs" onClick={()=>this.props.firopen()}><Note/>  FIR</NavLink>
+                </React.Fragment>
                 </div>
                 <Fab className="chatBtn" onClick={()=>{this.props.history.push("/message")}}>
                     <Chat/>

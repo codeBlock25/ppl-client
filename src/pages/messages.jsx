@@ -24,7 +24,7 @@ class Messages extends Component {
     async getMsgs(){
         await Axios({
             method: "GET",
-            url: `http://localhost:1020/api/message?from=${"amosdaniel252@gmail.com"}`
+            url: `https://sam-school.herokuapp.com/api/message?from=${"amosdaniel252@gmail.com"}`
         }).then(result=> {
             this.setState({msgs: result.data})
         })
@@ -32,7 +32,7 @@ class Messages extends Component {
     async getStaffs(){
         await Axios({
             method: "GET",
-            url: `http://localhost:1020/api/message/staffs`
+            url: `https://sam-school.herokuapp.com/api/message/staffs`
         }).then(result=> {
             this.setState({staffs: result.data})
         })
@@ -42,7 +42,7 @@ class Messages extends Component {
         if(this.state.staffs.indexOf(this.state.messagee) > -1){
             await Axios({
                 method: "POST",
-                url: "http://localhost:1020/api/message",
+                url: "https://sam-school.herokuapp.com/api/message",
                 data: {
                     from: "amosdaniel252@gmail.com" || this.props.staffDetails.email,
                     to: this.state.messagee,

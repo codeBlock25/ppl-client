@@ -13,6 +13,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/styles';
 import Axios from "axios"
+import moment from "moment"
 
 function createData(case_code, crime, count, date, sentence) {
     return { case_code, crime, count, date, sentence };
@@ -48,14 +49,12 @@ const style = {
         maxHeight: 440,
     },
 }
-const rows = [
-    createData("CS0190",'chop person meat', 'supreme count wuse', "2020-02-20", "7 years")
-  ];
 
 class Criminals extends Component {
     state = {
         page: 0,
-        rowsPerPage: 30
+        rowsPerPage: 30,
+        rows: []
     }
 
     handleChangePage = (event, newPage) => {
@@ -67,12 +66,19 @@ class Criminals extends Component {
     };
     fetch = async ()=>{
         let token = "my token should go here"
+        let rows = []
         await Axios({
             url: `http://localhost:1020/api/crime?token=${token}`,
             method: "GET"
         })
         .then((result)=>{
-            console.log(result.data)
+            for(let i = 0; i < result.data.length; i++){
+                rows.push(createData(result.data[i].code, result.data[i].crime, result.data[i].court, moment(result.data[i].sentence_date).format('YYYY-MMMM-DD'), result.data[i].sentence))
+            }
+            if (rows.length === result.data.length) {
+                this.setState({rows: rows})
+            }
+            // console.log(this.state.rows, result.data)
         })
         .catch(err=>{
             console.log(err)
@@ -105,7 +111,7 @@ class Criminals extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map(row => {
+                                    {this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map(row => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                                         {columns.map(column => {
@@ -125,7 +131,7 @@ class Criminals extends Component {
                             <TablePagination
                                 rowsPerPageOptions={[10, 25, 100]}
                                 component="div"
-                                count={rows.length}
+                                count={this.state.rows.length}
                                 rowsPerPage={this.state.rowsPerPage}
                                 page={this.state.page}
                                 onChangePage={this.handleChangePage}

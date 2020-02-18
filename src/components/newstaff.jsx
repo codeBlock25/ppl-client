@@ -14,6 +14,7 @@ const NewStaff = (props) => {
     const [bin, setbin]= useState("")
     const [email, setemail] = useState("")
     const [rank, setrank] = useState("")
+    const [fileType, setfileType] = useState('')
     const [loading, setloading] = useState(false)
     const {
         newstaff,
@@ -23,14 +24,17 @@ const NewStaff = (props) => {
         setloading(true)
         e.preventDefault()
         Axios({
-            url: "http://localhost:1020/api/add",
+            url: "http://localhost:3000/api/add",
             method: "POST",
             data: {
                 full_name: full_name,
                 email: email,
                 rank: rank,
                 phone_num: phone_num,
-                avatar: bin
+                avatar: {
+                    data: bin,
+                    contentType: fileType
+                }
             }
         }).then(()=>{
             setloading(false)
@@ -56,7 +60,7 @@ const upload =(e)=>{
       }
     var file = e.currentTarget.files[0]
     if(accept.binary.indexOf(file.type) > -1){
-        console.log("match")
+        setfileType(file.type)
         createBinary(file,callback)
     } else {
         console.log("not accepted")
@@ -79,9 +83,9 @@ const upload =(e)=>{
                         }} 
                     />
                     <label htmlFor="contained-button-file" className="inputBox">
-                        <Button variant="contained" fullWidth color="primary" component="span">
+                        <Button variant="contained" style={bin.length > 0 ? {backgroundColor: '#4CAF50'}: {backgroundColor: 'rgb(63, 82, 180)'}} fullWidth color="primary" component="span">
                             <PhotoCamera/>
-                        Upload officer photo
+                        {bin.length > 0 ? "image added" : "upload an image"}
                         </Button>
                     </label>
                 <TextField

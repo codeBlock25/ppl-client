@@ -30,7 +30,7 @@ const NewFir = (props) => {
         setloading(true)
         e.preventDefault()
        await Axios({
-            url: "http://localhost:1020/api/fir",
+            url: "https://sam-school.herokuapp.com/api/fir",
             method: "POST",
             data: {
                 officer_name: props.staffDetails.full_name,

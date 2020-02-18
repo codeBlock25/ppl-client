@@ -73,7 +73,7 @@ class Login extends Component {
             document.querySelector(".account form .error").classList.remove("active")
             console.log("passed")
             await Axios({
-                url: `http://localhost:1020/api/login?email=${this.state.emaild}&password=${this.state.password}`,
+                url: `https://sam-school.herokuapp.com/api/login?email=${this.state.emaild}&password=${this.state.password}`,
                 method: "GET",
             }).then(data=>{
                 console.log(data.data.info)
