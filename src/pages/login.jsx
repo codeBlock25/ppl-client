@@ -130,7 +130,7 @@ class Login extends Component {
                         </div>
                         <TextField
                             variant="outlined"
-                            label="emaild"
+                            label="email"
                             id="emaild"
                             value={this.state.email}
                             onChange={this.handleChange}
