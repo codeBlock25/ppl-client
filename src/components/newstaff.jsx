@@ -31,10 +31,7 @@ const NewStaff = (props) => {
                 email: email,
                 rank: rank,
                 phone_num: phone_num,
-                avatar: {
-                    data: bin,
-                    contentType: fileType
-                }
+                avatar: bin
             }
         }).then(()=>{
             setloading(false)
