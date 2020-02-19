@@ -79,7 +79,7 @@ class Profile extends Component {
                             <span className="cc"><span>no record</span></span>
                         }
                         <Button className="Btn add" onClick={()=>{
-                            if(details.level === 1){
+                            if(details.level !== 1) && details.level === {
                                 newstaff()
                             } else {
                                 toast.error(`only level 1 officers can add users and you'er a level ${details.level}`)
