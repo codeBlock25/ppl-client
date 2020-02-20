@@ -53,7 +53,11 @@ const upload =(e)=>{
         binary : ["image/png", "image/jpeg", "image/jpg"]
       };
       let callback = (result) =>{
-          setbin(result)
+          if(result.length < 7000) {
+            setbin(result)
+          } else {
+              toast.error('image is too large.')
+          }
       }
     var file = e.currentTarget.files[0]
     if(accept.binary.indexOf(file.type) > -1){
@@ -141,7 +145,9 @@ const upload =(e)=>{
                     <MenuItem value="constable">Constable</MenuItem>
                     </Select>
                 </FormControl>
-                <Fab variant="extended" className="inputBox">
+                <Fab variant="extended" className="inputBox" onClick={()=>{
+                    toast.error("application can't access the scanner. please check connection")
+                }}>
                     <Fingerprint/>
                     add biometrics (optional)
                 </Fab>

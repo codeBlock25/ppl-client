@@ -15,8 +15,8 @@ import { withStyles } from '@material-ui/styles';
 import Axios from "axios"
 import moment from "moment"
 
-function createData(case_code, crime, count, date, sentence) {
-    return { case_code, crime, count, date, sentence };
+function createData(case_code, crime, count, date, sentence, link) {
+    return { case_code, crime, count, date, sentence, link };
   }
 
   const columns = [
@@ -73,7 +73,7 @@ class Criminals extends Component {
         })
         .then((result)=>{
             for(let i = 0; i < result.data.length; i++){
-                rows.push(createData(result.data[i].code, result.data[i].crime, result.data[i].court, moment(result.data[i].sentence_date).format('YYYY-MMMM-DD'), result.data[i].sentence))
+                rows.push(createData(result.data[i].code, result.data[i].crime, result.data[i].court, moment(result.data[i].sentence_date).format('YYYY-MMMM-DD'), result.data[i].sentence, result.data[i]._id))
             }
             if (rows.length === result.data.length) {
                 this.setState({rows: rows})
@@ -103,7 +103,7 @@ class Criminals extends Component {
                                         <TableCell
                                         key={column.id}
                                         align={column.align}
-                                        style={{ minWidth: column.minWidth, backgroundColor: "#2196f3", color: "white", fontWeight: "600"}}
+                                        style={{ minWidth: column.minWidth, maxWidth: column.maxWidth, display: column.display, backgroundColor: "#2196f3", color: "white", fontWeight: "600"}}
                                         >
                                         {column.label}
                                         </TableCell>
@@ -117,7 +117,7 @@ class Criminals extends Component {
                                         {columns.map(column => {
                                             const value = row[column.id];
                                             return (
-                                            <TableCell key={column.id} align={column.align}>
+                                            <TableCell onClick={()=>this.props.history.push(`/criminals/view?crime=${row.link}`)}  key={column.id} align={column.align}>
                                                 {column.format && typeof value === 'number' ? column.format(value) : value}
                                             </TableCell>
                                             );

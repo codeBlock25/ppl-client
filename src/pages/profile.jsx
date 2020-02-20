@@ -1,10 +1,10 @@
-import React, { Component } from "react"
-import "../styles/profile.sass"
-import { Button, Avatar } from "@material-ui/core"
-import { newstaffAction } from "../redux/actions/controls"
-import { connect } from "react-redux"
-import { toast, ToastContainer } from 'react-toastify';
-import { staffDetailsAction } from "../redux/actions/details"
+import React, { Component } from "react";
+import "../styles/profile.sass";
+import { Button, Avatar } from "@material-ui/core";
+import { newstaffAction } from "../redux/actions/controls";
+import { connect } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { staffDetailsAction } from "../redux/actions/details";
 
 
 class Profile extends Component {
@@ -17,6 +17,7 @@ class Profile extends Component {
         this.loader = this.loader.bind(this)
         this.hexConverter = this.hexConverter.bind(this)
         this.callback = this.callback.bind(this)
+        this.setImage = this.setImage.bind(this)
     }
     loader(file, callback){
         var reader = new FileReader()
@@ -26,47 +27,35 @@ class Profile extends Component {
         console.log(file)
         reader.readAsArrayBuffer(file.data)
     }
-    // const upload =(e)=>{
-    //     var accept = {
-    //         binary : ["image/png", "image/jpeg", "image/jpg"]
-    //       };
-    //       let callback = (result) =>{
-    //           setbin(result)
-    //       }
-    //     var file = e.currentTarget.files[0]
-    //     if(accept.binary.indexOf(file.type) > -1){
-    //         console.log("match")
-    //     } else {
-    //         console.log("not accepted")
-    //         toast.error("picture must be either png, jpg or jpeg")
-    //     }
-    //     console.log(bin)
-    // } 
     callback(result){
         this.setState({bin: result})
-        console.log(result)
     }
     hexConverter = (str) =>{
         console.log(this.props.details)
         this.loader(this.props.details.avatar,this.callback)
-        // return btoa(String.fromCharCode
-        //     .apply(null, str.replace(/\r|\n/g, "")
-        //     .replace(/([\da-fA-F]{2}) ?/g, "0x$1")
-        //     .replace(/ +$/, "").split(" ")
-        //     )
-        // )
+    }
+    setImage(imageArray){
+        let imageDebuffered = new Uint8Array(imageArray.data)
+        const STRING_CHAR = String.fromCharCode.apply(null, imageDebuffered)
+        this.setState({bin:  btoa(STRING_CHAR)})
     }
     componentDidMount(){
-        // this.hexConverter()
+        if (this.props.details.avatar) {
+            console.log('loading')
+            this.setImage(this.props.details.avatar)
+        } else {
+            console.log('not')
+        }
     }
     render() {
-        const { newstaff, details } = this.props
-        console.log(details)
+        const { newstaff, details } = this.props 
         return (
             <section className="Profile">
                 <ToastContainer position="bottom-center"/>
                 <div className="info">
-                    <img className="pic" src={'data:image/jpeg;base64,' + this.state.bin} />
+                    {this.state.bin.length > 10? 
+                    <img className="pic" src={`data:image/jpeg;base64, ${this.state.bin}`} />: 
+                    <img className="pic" />}
                     <div className="content">
                         { details ? 
                             <React.Fragment>
@@ -79,7 +68,7 @@ class Profile extends Component {
                             <span className="cc"><span>no record</span></span>
                         }
                         <Button className="Btn add" onClick={()=>{
-                            if(details.level !== 1) && details.level === {
+                            if(details.level !== 1){
                                 newstaff()
                             } else {
                                 toast.error(`only level 1 officers can add users and you'er a level ${details.level}`)
@@ -97,7 +86,6 @@ const mapStateToProps = (state, ownProps) => {
     return {
         newstaffopen: state.controls.newstaff_panel_open,
         details: state.details.staffDetails,
-        staffDetails: state.details.staffDetails
     }
 }
 

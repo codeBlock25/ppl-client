@@ -10,6 +10,7 @@ import NewFir from './components/newfir';
 import Cases from './pages/cases';
 import Messages from './pages/messages';
 import Newcrimerecord from './components/newcrimerecord';
+import CriminalView from './components/criminalView';
 
 
 function App(){
@@ -38,14 +39,9 @@ function App(){
             exact
           />
           <Route
-            component={Criminals}
-            path="/criminals"
-            exact
-          />
-          <Route
-            component={Criminals}
+            component={CriminalView}
             path="/criminals/view"
-            exact
+            exact={false}
           />
           <Route
             component={Messages}

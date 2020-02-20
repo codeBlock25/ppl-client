@@ -14,19 +14,12 @@
         display: flex
         border-radius: 10px
         box-shadow: 0 6px 15px rgba(148, 148, 148, 0.15)
-        // .pic 
-        //     margin: 10px
-        //     width: 200px
-        //     height: 200px
-        //     display: block 
-        //     background-position: center 
-        //     background-size: cover
-        //     border-radius: 10px
         .content 
             width: calc( 100% - 10px )
             height: auto
             display: block
             margin: 0 30px
+                
             .cc 
                 width: 100%
                 height: 40px
@@ -62,7 +55,18 @@
             color: white
             &:nth-of-type(2)
                 background-color: #2195f3
-            &:hover
-                background-color: #000000
+.criminal_pic
+    position: relative
+    left: 50%
+    transform: translateX(-50%)
+    width: 80%
+    height: 300px
+    display: block
+    margin: 100px 0 0 0
+.loader 
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
 
             

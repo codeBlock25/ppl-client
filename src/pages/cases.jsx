@@ -7,6 +7,7 @@ import { ClipLoader } from "react-spinners"
 import { staffDetailsAction } from '../redux/actions/details';
 import { connect } from 'react-redux';
 import Case from '../components/case';
+import { toast, ToastContainer } from "react-toastify";
 
 
 class Cases extends Component {
@@ -38,6 +39,7 @@ class Cases extends Component {
     render() {
         return (
             <section className="Cases">
+                <ToastContainer position="bottom-center"/>
                 <form className="mainForm" action="">
                     <TextField
                         variant="outlined"
@@ -62,7 +64,7 @@ class Cases extends Component {
                                                 <span className="re"><span>record by:</span>{caser.pertitioner_name}</span>
                                                 <span className="re"><span>assigned to:</span> {caser.assigned_officer} </span>
                                                 <span className="re"><span>record date:</span> {caser.date} </span>
-                                                <Button className="viewBtn" onClick={()=>this.props.details.level === 3 ? this.props.history.push(`/cases/${caser._id}`) : this.fetcher() }>{this.props.details.level === 3 ? "view": "can't view"}</Button>
+                                                <Button className="viewBtn" onClick={()=>this.props.details.level === 3 ? this.props.history.push(`/cases/${caser._id}`) : toast.error('user not allowed') }>{this.props.details.level === 3 ? "view": "can't view"}</Button>
                                             </div>
                                         </div>
                                     )

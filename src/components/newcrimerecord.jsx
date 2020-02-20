@@ -11,6 +11,7 @@ import { Fingerprint, PhotoCamera } from "@material-ui/icons"
 const NewCrimeRecord = (props) => {
     const [crime, setcrime] = useState("")
     const [date, setdate] = useState("")
+    const [bin, setbin]= useState("")
     const [court, setcourt] = useState("")
     const [loading, setloading] = useState(false)
     const  [sentenced, setsentenced]= useState("")
@@ -28,7 +29,8 @@ const NewCrimeRecord = (props) => {
                 crime: crime,
                 date: date,
                 court: court,
-                sentenced: sentenced
+                sentenced: sentenced,
+                pic: bin
             }
         }).then(()=>{
             setloading(false)
@@ -38,31 +40,34 @@ const NewCrimeRecord = (props) => {
             toast.error("unable to set record")
         })
     }
-    // var fileInput = document.getElementById("contained-button-file");
-
-// files is a FileList object (similar to NodeList)
-// var files = fileInput.files;
-
-const upload =(e)=>{
-    var accept = {
-        binary : ["image/png", "image/jpeg"]
-      };
-    var file = e.currentTarget.files[0]
-    console.log(file,[e.currentTarget])
-    if(accept.binary.indexOf(file.type) > -1){
-        console.log("match")
-    } else {
-        console.log("not accepted")
+    const createBinary = (file, callback)=>{
+        var reader = new FileReader()
+        reader.onload = ()=>{
+            callback(reader.result)
+        }
+        reader.readAsBinaryString(file)
     }
-      // if file type could be detected
-    //   if (file !== null) {
-    //     if (accept.binary.indexOf(file.type) > -1) {
-    //       // file is a binary, which we accept
-    //       var data = file.getAsBinary();
-    //       console.log(data)
-    //     }
-    // }
-}
+    const upload =(e)=>{
+        var accept = {
+            binary : ["image/png", "image/jpeg", "image/jpg"]
+          };
+          let callback = (result) =>{
+            if(result.length < 7000) {
+              setbin(result)
+            } else {
+                toast.error('image is too large.')
+            }
+          }
+        var file = e.currentTarget.files[0]
+        if(accept.binary.indexOf(file.type) > -1){
+            // setfileType(file.type)
+            createBinary(file,callback)
+        } else {
+            console.log("not accepted")
+            toast.error("picture must be either png, jpg or jpeg")
+        }
+        console.log(bin)
+    }
 
 // var file;
 
@@ -85,6 +90,22 @@ const upload =(e)=>{
         <div className={newcrimerecording ? "Newstaff open": "Newstaff"}>
             <form onSubmit={(e)=>hanleSubmit(e)}>
                 <ToastContainer position="top-center"/>
+                    <input
+                        accept="image/*"
+                        style={{display: "none"}}
+                        id="contained-button-file"
+                        type="file"
+                        value=""
+                        onChange={(e)=>{
+                            upload(e)
+                        }} 
+                    />
+                    <label htmlFor="contained-button-file" className="inputBox">
+                        <Button variant="contained" style={bin.length > 0 ? {backgroundColor: '#4CAF50'}: {backgroundColor: 'rgb(63, 82, 180)'}} fullWidth color="primary" component="span">
+                            <PhotoCamera/>
+                        {bin.length > 0 ? "image added" : "upload an image  (optional)"}
+                        </Button>
+                    </label>
                 <TextField
                     className="inputBox"
                     variant="outlined"
@@ -122,7 +143,9 @@ const upload =(e)=>{
                     value={sentenced}
                     onChange={(e)=>{setsentenced(e.target.value)}}
                 />
-                <Fab variant="extended" className="inputBox">
+                <Fab variant="extended" className="inputBox" onClick={()=>{
+                    toast.error("application can't access the scanner. please check connection")
+                }}>
                     <Fingerprint/>
                     add biometrics (optional)
                 </Fab>
