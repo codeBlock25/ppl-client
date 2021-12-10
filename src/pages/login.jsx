@@ -109,7 +109,12 @@ class Login extends Component {
           });
         })
         .catch((err) => {
-          toast.error("communition with school server broken");
+
+console.log(err.code);          if(err?.code === "400"){
+
+          toast.error("Invalid details");
+          }else {
+          toast.error("communition with school server broken");}
           setTimeout(() => {
             this.setState({ loading: false });
           }, 500);

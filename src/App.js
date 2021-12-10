@@ -4,12 +4,12 @@ import Profile from "./pages/profile";
 import Nav from "./components/drop";
 import Criminals from "./pages/criminals";
 import login from "./pages/login";
-import NewStaff from "./components/newStaff";
-import NewCriminal from "./components/newCriminal";
-import NewFir from "./components/newFir";
+import NewStaff from "./components/newstaff";
+import NewCriminal from "./components/newcriminal";
+import NewFir from "./components/newfir";
 import Cases from "./pages/cases";
 import Messages from "./pages/messages";
-import NewCrimeRecord from "./components/newCrimeRecord";
+import NewCrimeRecord from "./components/newcrimerecord";
 import CriminalView from "./components/criminalView";
 
 function App() {
