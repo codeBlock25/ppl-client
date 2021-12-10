@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import "../styles/newstaff.sass";
 import {
   TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
   Button,
   Fab,
 } from "@material-ui/core";
